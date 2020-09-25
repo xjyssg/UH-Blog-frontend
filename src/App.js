@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import LoginForm from './components/LoginForm'
 import LoggedInfo from './components/LoggedInfo'
-import Blogs from './components/Blogs'
+import DisplayBlogs from './components/DisplayBlogs'
 import CreateBlogForm from './components/CreateBlogForm'
 import Notification from './components/Notification'
 import Toggle from './components/Toggle'
@@ -65,7 +65,13 @@ const App = () => {
         />
       </Toggle>
       
-      {user !== null && <Blogs blogs={blogs} user={user} logoutHandler={logoutHandler} />}
+      {user !== null && 
+        <DisplayBlogs
+          blogs={blogs}
+          user={user}
+          logoutHandler={logoutHandler} 
+        />
+      }
     </div>
   )
 }

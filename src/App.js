@@ -57,8 +57,8 @@ const App = () => {
 
       <Toggle buttonLabel='new note' ref={createBlogFormRef}>
         <CreateBlogForm 
-          setBlogs={setBlogs} 
           blogs={blogs} 
+          setBlogs={setBlogs} 
           setMessage={setMessage}
           setErrorMessage={setErrorMessage}
           createBlogFormRef={createBlogFormRef}
@@ -68,6 +68,7 @@ const App = () => {
       {user !== null && 
         <DisplayBlogs
           blogs={blogs}
+          setBlogs={setBlogs}
           user={user}
           logoutHandler={logoutHandler}
           setMessage={setMessage}

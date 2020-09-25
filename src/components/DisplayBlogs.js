@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 
-const Blog = ({ blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
+const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -32,7 +32,7 @@ const Blog = ({ blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
         blog.id === updatedBlog.id 
         ? {...blog, likes: updatedBlog.likes}
         : blog)
-      setBlogs(newBlogs.sort((blog1, blog2) => blog2.likes - blog1.likes))
+      setBlogs(newBlogs)
       setMessage('like success')
       setTimeout(() => {
         setMessage(null)
@@ -42,6 +42,25 @@ const Blog = ({ blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
+    }
+  }
+
+  const removeBlogHandler = async () => {
+    if (window.confirm(`Remove ${blog.title}`)) {
+      try {
+        await blogService.deleteBlog(blog.id)
+        const newBlogs = blogs.filter(aBlog => aBlog.id !== blog.id)
+        setBlogs(newBlogs)
+        setMessage('deletion success')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      } catch (exception) {
+        setErrorMessage('deletion fail')
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      }
     }
   }
   
@@ -56,13 +75,16 @@ const Blog = ({ blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
           <button onClick={addLikes}>like</button>
           </div>
         <div>{blog.author}</div>
-        
       </div>
+      { user.username === blog.user.username &&
+      <div>
+        <button onClick={removeBlogHandler}>remove</button>
+      </div>}
     </div>
   )
 }
 
-const DisplayBlogs = ({ blogs, setBlogs, setMessage, setErrorMessage }) => {
+const DisplayBlogs = ({ user, blogs, setBlogs, setMessage, setErrorMessage }) => {
   const orderedBlogs = blogs.sort((blog1, blog2) => blog2.likes - blog1.likes)
   setBlogs(orderedBlogs)
   return (
@@ -70,6 +92,7 @@ const DisplayBlogs = ({ blogs, setBlogs, setMessage, setErrorMessage }) => {
       {blogs.map(blog => 
         <Blog 
           key={blog.id}
+          user={user}
           blog={blog}
           blogs={blogs}
           setBlogs={setBlogs}

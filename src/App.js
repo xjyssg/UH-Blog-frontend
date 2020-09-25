@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import Blogs from './components/Blogs'
 import LoginForm from './components/LoginForm'
+import LoggedInfo from './components/LoggedInfo'
+import Blogs from './components/Blogs'
+import CreateBlogForm from './components/CreateBlogForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -64,7 +66,10 @@ const App = () => {
 
   return (
     <div>
+      <h2>blogs</h2>
       {user === null && <LoginForm loginHandler={loginHandler} username={username} usernameChangeHandler={usernameChangeHandler} password={password} passwordChangeHandler={passwordChangeHandler} />}
+      {user !== null && <LoggedInfo user={user} logoutHandler={logoutHandler} />}
+      {user !== null && <CreateBlogForm setBlogs={setBlogs} blogs={blogs} />}
       {user !== null && <Blogs blogs={blogs} user={user} logoutHandler={logoutHandler} />}
     </div>
   )

@@ -28,10 +28,10 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
         likes: blog.likes + 1
       }
       const updatedBlog = await blogService.updateBlog(blog.id, newObject)
-      const newBlogs = blogs.map(blog => 
-        blog.id === updatedBlog.id 
-        ? {...blog, likes: updatedBlog.likes}
-        : blog)
+      const newBlogs = blogs.map(blog =>
+        blog.id === updatedBlog.id
+          ? { ...blog, likes: updatedBlog.likes }
+          : blog)
       setBlogs(newBlogs)
       setMessage('like success')
       setTimeout(() => {
@@ -63,17 +63,17 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
       }
     }
   }
-  
+
   return (
     <div style={blogStyle}>
-      {blog.title} 
+      {blog.title}
       <button onClick={toggleDetail}>{buttonLabel}</button>
       <div style={detailStyle}>
         <div>{blog.url}</div>
         <div>
           likes {blog.likes}
           <button onClick={addLikes}>like</button>
-          </div>
+        </div>
         <div>{blog.author}</div>
       </div>
       { user.username === blog.user.username &&
@@ -89,8 +89,8 @@ const DisplayBlogs = ({ user, blogs, setBlogs, setMessage, setErrorMessage }) =>
   setBlogs(orderedBlogs)
   return (
     <div>
-      {blogs.map(blog => 
-        <Blog 
+      {blogs.map(blog =>
+        <Blog
           key={blog.id}
           user={user}
           blog={blog}

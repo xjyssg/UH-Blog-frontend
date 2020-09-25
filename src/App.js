@@ -19,7 +19,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAllBlogs().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -30,8 +30,6 @@ const App = () => {
       setUser(user)
     }
   }, [])
-
-  
 
   const logoutHandler = () => {
     window.localStorage.removeItem('loggedBlogUser')
@@ -46,26 +44,26 @@ const App = () => {
       <Notification message={errorMessage} color='red' />
 
       {user === null &&
-        <LoginForm 
-          setUser={setUser} 
-          setMessage={setMessage} 
-          setErrorMessage={setErrorMessage} 
+        <LoginForm
+          setUser={setUser}
+          setMessage={setMessage}
+          setErrorMessage={setErrorMessage}
         />
       }
 
       {user !== null && <LoggedInfo user={user} logoutHandler={logoutHandler} />}
 
       <Toggle buttonLabel='new note' ref={createBlogFormRef}>
-        <CreateBlogForm 
-          blogs={blogs} 
-          setBlogs={setBlogs} 
+        <CreateBlogForm
+          blogs={blogs}
+          setBlogs={setBlogs}
           setMessage={setMessage}
           setErrorMessage={setErrorMessage}
           createBlogFormRef={createBlogFormRef}
         />
       </Toggle>
-      
-      {user !== null && 
+
+      {user !== null &&
         <DisplayBlogs
           user={user}
           blogs={blogs}

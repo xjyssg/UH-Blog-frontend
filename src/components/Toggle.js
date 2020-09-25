@@ -30,5 +30,5 @@ const Toggle = React.forwardRef((props, ref) => {
   )
 })
 
-
+Toggle.displayName = 'Toggle'
 export default Toggle

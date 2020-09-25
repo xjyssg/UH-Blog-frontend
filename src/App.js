@@ -1,24 +1,56 @@
 import React, { useState, useEffect } from 'react'
-import Blog from './components/Blog'
+import Blogs from './components/Blogs'
+import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
+import loginService from './services/login'
+
 
 const App = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
+    blogService.getAllBlogs().then(blogs =>
       setBlogs( blogs )
     )  
   }, [])
 
+
+
+  const loginHandler = async (event) => {
+    event.preventDefault()
+    try {
+      const user = await loginService.login({
+        username, password,
+      })
+      setUser(user)
+      console.log(user)
+    } catch (exception) {
+      setErrorMessage('Wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+    setUsername('')
+    setPassword('')
+  }
+
+  const usernameChangeHandler = (event) =>
+    setUsername(event.target.value)
+
+  const passwordChangeHandler = (event) =>
+    setPassword(event.target.value)
+
   return (
     <div>
-      <h2>blogs</h2>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+      {user === null && <LoginForm loginHandler={loginHandler} username={username} usernameChangeHandler={usernameChangeHandler} password={password} passwordChangeHandler={passwordChangeHandler} />}
+      {user !== null && <Blogs blogs={blogs} user={user} />}
     </div>
   )
 }
+
 
 export default App

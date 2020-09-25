@@ -50,6 +50,12 @@ const App = () => {
     setPassword('')
   }
 
+  const logoutHandler = () => {
+    window.localStorage.removeItem('loggedBlogUser')
+    blogService.setToken(null)
+    setUser(null)
+  }
+
   const usernameChangeHandler = (event) =>
     setUsername(event.target.value)
 
@@ -59,7 +65,7 @@ const App = () => {
   return (
     <div>
       {user === null && <LoginForm loginHandler={loginHandler} username={username} usernameChangeHandler={usernameChangeHandler} password={password} passwordChangeHandler={passwordChangeHandler} />}
-      {user !== null && <Blogs blogs={blogs} user={user} />}
+      {user !== null && <Blogs blogs={blogs} user={user} logoutHandler={logoutHandler} />}
     </div>
   )
 }

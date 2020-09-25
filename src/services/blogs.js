@@ -5,7 +5,7 @@ let token = null
 
 
 const setToken = newToken => {
-  token = `bear ${newToken}`
+  token = `bearer ${newToken}`
 }
 
 const getAllBlogs = () => {
@@ -14,7 +14,7 @@ const getAllBlogs = () => {
 
 const createBlog = async newObject => {
   const config = {
-    header: {Authorization: token},
+    headers: { Authorization: token },
   }
   
   const response = await axios.post(baseUrl, newObject, config)

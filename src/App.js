@@ -3,6 +3,7 @@ import LoginForm from './components/LoginForm'
 import LoggedInfo from './components/LoggedInfo'
 import Blogs from './components/Blogs'
 import CreateBlogForm from './components/CreateBlogForm'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -12,6 +13,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
+  const [message, setMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
@@ -41,7 +43,10 @@ const App = () => {
         'loggedBlogUser', JSON.stringify(user)
       ) 
       setUser(user)
-      console.log(user)
+      setMessage('login succeed')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     } catch (exception) {
       setErrorMessage('Wrong credentials')
       setTimeout(() => {
@@ -67,9 +72,11 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
+      <Notification message={message} color='green' />
+      <Notification message={errorMessage} color='red' />
       {user === null && <LoginForm loginHandler={loginHandler} username={username} usernameChangeHandler={usernameChangeHandler} password={password} passwordChangeHandler={passwordChangeHandler} />}
       {user !== null && <LoggedInfo user={user} logoutHandler={logoutHandler} />}
-      {user !== null && <CreateBlogForm setBlogs={setBlogs} blogs={blogs} />}
+      {user !== null && <CreateBlogForm setBlogs={setBlogs} blogs={blogs} setMessage={setMessage} setErrorMessage={setErrorMessage} />}
       {user !== null && <Blogs blogs={blogs} user={user} logoutHandler={logoutHandler} />}
     </div>
   )

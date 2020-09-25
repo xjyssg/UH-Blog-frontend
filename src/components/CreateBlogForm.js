@@ -22,6 +22,7 @@ const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage, createBlo
         title: title,
         author: author,
         url: url,
+        likes: 0,
       }
       const savedBlog = await blogService.createBlog(newObject)
       setBlogs(blogs.concat(savedBlog))

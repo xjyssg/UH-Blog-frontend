@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import blogService from '../services/blogs'
 
 
-const Blog = ({blog}) => {
+const Blog = ({ blog, setMessage, setErrorMessage }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -11,12 +12,36 @@ const Blog = ({blog}) => {
   }
 
   const [showDetail, setShowDetail] = useState(false)
+  const [likes, setLikes] = useState(blog.likes)
 
   const buttonLabel = showDetail ? 'hide' : 'view'
   const detailStyle = { display: showDetail ? '' : 'none' }
 
   const toggleDetail = () => {
     setShowDetail(!showDetail)
+  }
+
+
+  const addLikes = async () => {
+    try {
+      const newObject = {
+        ...blog,
+        likes: likes + 1
+      }
+      console.log('@@', newObject)
+      const updatedBlog = await blogService.updateBlog(blog.id, newObject)
+      console.log('##', updatedBlog)
+      setLikes(updatedBlog.likes)
+      setMessage('like success')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    } catch (exception) {
+      setErrorMessage('like fail')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
   }
   
   return (
@@ -26,8 +51,8 @@ const Blog = ({blog}) => {
       <div style={detailStyle}>
         <div>{blog.url}</div>
         <div>
-          likes {blog.likes}
-          <button>like</button>
+          likes {likes}
+          <button onClick={addLikes}>like</button>
           </div>
         <div>{blog.author}</div>
         
@@ -36,9 +61,14 @@ const Blog = ({blog}) => {
   )
 }
 
-const DisplayBlogs = ({ blogs }) => (
+const DisplayBlogs = ({ blogs, setMessage, setErrorMessage }) => (
   <div>
-    {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
+    {blogs.map(blog => <Blog 
+      key={blog.id}
+      blog={blog}
+      setMessage={setMessage}
+      setErrorMessage={setErrorMessage}
+    />)}
   </div>
 )
 

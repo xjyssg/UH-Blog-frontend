@@ -69,7 +69,9 @@ const App = () => {
         <DisplayBlogs
           blogs={blogs}
           user={user}
-          logoutHandler={logoutHandler} 
+          logoutHandler={logoutHandler}
+          setMessage={setMessage}
+          setErrorMessage={setErrorMessage}
         />
       }
     </div>

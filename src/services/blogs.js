@@ -8,8 +8,9 @@ const setToken = newToken => {
   token = `bearer ${newToken}`
 }
 
-const getAllBlogs = () => {
-  return axios.get(baseUrl).then(response => response.data)
+const getAllBlogs = async () => {
+  const response = await axios.get(baseUrl)
+  return response.data
 }
 
 const createBlog = async newObject => {
@@ -21,12 +22,14 @@ const createBlog = async newObject => {
   return response.data
 }
 
-const deleteBlog = id => {
-  return axios.delete(`${baseUrl}/${id}`).then(response => console.log("delete!!", response))
+const deleteBlog = async id => {
+  const response = await axios.delete(`${baseUrl}/${id}`)
+  return console.log("delete!!", response)
 }
 
-const updateBlog = (id, newObject) => {
-  return axios.put(`${baseUrl}/${id}`, newObject).then(response => response.data)
+const updateBlog = async (id, newObject) => {
+  const response = await axios.put(`${baseUrl}/${id}`, newObject)
+  return response.data
 }
 
 

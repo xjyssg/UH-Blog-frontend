@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 
-const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage}) => {
+const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage, createBlogFormRef}) => {
   const [title, SetTitle] = useState('')
   const [author, SetAuthor] = useState('')
   const [url, SetUrl] = useState('')
@@ -25,6 +25,7 @@ const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage}) => {
       }
       const savedBlog = await blogService.createBlog(newObject)
       setBlogs(blogs.concat(savedBlog))
+      createBlogFormRef.current.toggleVisibility()
       setMessage('creation succeed')
       setTimeout(() => {
         setMessage(null)
@@ -73,9 +74,6 @@ const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage}) => {
     </div>
   )
 }
-
-
-
 
 
   export default CreateBlogForm

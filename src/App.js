@@ -6,12 +6,9 @@ import CreateBlogForm from './components/CreateBlogForm'
 import Notification from './components/Notification'
 import Toggle from './components/Toggle'
 import blogService from './services/blogs'
-import loginService from './services/login'
 
 
 const App = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
   const [message, setMessage] = useState('')
@@ -34,31 +31,7 @@ const App = () => {
     }
   }, [])
 
-  const loginHandler = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({
-        username, password,
-      })
-
-      blogService.setToken(user.token)
-      window.localStorage.setItem(
-        'loggedBlogUser', JSON.stringify(user)
-      ) 
-      setUser(user)
-      setMessage('login succeed')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
-    } catch (exception) {
-      setErrorMessage('Wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-    }
-    setUsername('')
-    setPassword('')
-  }
+  
 
   const logoutHandler = () => {
     window.localStorage.removeItem('loggedBlogUser')
@@ -74,21 +47,19 @@ const App = () => {
 
       {user === null &&
         <LoginForm 
-          loginHandler={loginHandler} 
-          username={username} 
-          usernameChangeHandler={({target}) => setUsername(target.value)} 
-          password={password} 
-          passwordChangeHandler={({target}) => setPassword(target.value)} 
+          setUser={setUser} 
+          setMessage={setMessage} 
+          setErrorMessage={setErrorMessage} 
         />
       }
-      
+
       {user !== null && <LoggedInfo user={user} logoutHandler={logoutHandler} />}
 
-      <Toggle buttonLabel='create' ref={createBlogFormRef}>
+      <Toggle buttonLabel='new note' ref={createBlogFormRef}>
         <CreateBlogForm 
           setBlogs={setBlogs} 
           blogs={blogs} 
-          setMessage={setMessage} 
+          setMessage={setMessage}
           setErrorMessage={setErrorMessage}
           createBlogFormRef={createBlogFormRef}
         />

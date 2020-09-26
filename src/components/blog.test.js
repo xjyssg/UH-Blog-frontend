@@ -36,10 +36,12 @@ test('render title & author', () => {
 })
 
 test('render details after clicking', () => {
+  const mockHandler = jest.fn()
   const component = render(
     <Blog
       user={user}
       blog={blog}
+      testfcn={mockHandler}
     />
   )
 
@@ -49,4 +51,20 @@ test('render details after clicking', () => {
   expect(details).toHaveTextContent('empty')
   expect(details).toHaveTextContent('5')
   expect(details).not.toHaveStyle('display:none')
+})
+
+test('click twice', () => {
+  const mockHandler = jest.fn()
+  const component = render(
+    <Blog
+      user={user}
+      blog={blog}
+      testfcn={mockHandler}
+    />
+  )
+
+  const button = component.getByText('view')
+  fireEvent.click(button)
+  fireEvent.click(button)
+  expect(mockHandler.mock.calls).toHaveLength(2)
 })

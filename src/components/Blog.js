@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 
-const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
+const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage, testfcn }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -18,6 +18,7 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
 
   const toggleDetail = () => {
     setShowDetail(!showDetail)
+    testfcn()
   }
 
   const addLikes = async () => {

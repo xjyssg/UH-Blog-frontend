@@ -66,12 +66,12 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
   return (
     <div style={blogStyle}>
       {blog.title}, from: {blog.author}
-      <button onClick={toggleDetail}>{buttonLabel}</button>
-      <div style={detailStyle} className="details">
+      <button onClick={toggleDetail} id="button">{buttonLabel}</button>
+      <div style={detailStyle} className="details" id="details">
         <div>{blog.url}</div>
         <div>
           likes {blog.likes}
-          <button onClick={addLikes}>like</button>
+          <button onClick={addLikes} id="like-button">like</button>
         </div>
       </div>
       { user.username === blog.user.username &&

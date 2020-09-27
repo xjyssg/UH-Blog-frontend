@@ -5,7 +5,6 @@ import Blog from './Blog'
 const DisplayBlogs = ({ user, blogs, setBlogs, setMessage, setErrorMessage }) => {
   const orderedBlogs = blogs.sort((blog1, blog2) => blog2.likes - blog1.likes)
   setBlogs(orderedBlogs)
-  console.log('@!!!!!', user, blogs)
   return (
     <div>
       {blogs.map(blog =>

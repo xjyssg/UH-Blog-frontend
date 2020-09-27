@@ -26,6 +26,7 @@ const CreateBlogForm = ({ setBlogs, blogs, setMessage, setErrorMessage, createBl
       }
       const savedBlog = await blogService.createBlog(newObject)
       setBlogs(blogs.concat(savedBlog))
+      console.log('adding', savedBlog)
       createBlogFormRef.current.toggleVisibility()
       setMessage('creation succeed')
       setTimeout(() => {

@@ -26,6 +26,7 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
         ...blog,
         likes: blog.likes + 1
       }
+      delete newObject.user
       const updatedBlog = await blogService.updateBlog(blog.id, newObject)
       const newBlogs = blogs.map(blog =>
         blog.id === updatedBlog.id
@@ -62,7 +63,6 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
       }
     }
   }
-  console.log('###',user, blog)
   return (
     <div style={blogStyle}>
       {blog.title}, from: {blog.author}
@@ -76,7 +76,7 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
       </div>
       { user.username === blog.user.username &&
       <div>
-        <button onClick={removeBlogHandler}>remove</button>
+        <button onClick={removeBlogHandler} id="delete-button">remove</button>
       </div>}
     </div>
   )

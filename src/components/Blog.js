@@ -65,7 +65,7 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
   }
   return (
     <div style={blogStyle}>
-      {blog.title}, from: {blog.author}
+      <div id="basics">{blog.title}, from: {blog.author}</div>
       <button onClick={toggleDetail} id="button">{buttonLabel}</button>
       <div style={detailStyle} className="details" id="details">
         <div>{blog.url}</div>

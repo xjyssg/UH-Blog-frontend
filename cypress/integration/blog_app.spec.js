@@ -60,7 +60,7 @@ describe('Blog app', function() {
     })
   })
 
-  describe.only('when a blog is created', function() {
+  describe('when a blog is created', function() {
     beforeEach(function() {
       cy.get('#username').type('root')
       cy.get('#password').type('root')
@@ -92,5 +92,23 @@ describe('Blog app', function() {
       cy.get('#login-button').click()
       cy.contains('a blog created by cypress').should('not.contain', 'remove')
     })
+  })
+
+  it.only('blogs in order', function() {
+    cy.login({ username: 'root', password: 'root' })
+    cy.createBlog({
+      title: 'one',
+      author: 'one',
+      url: 'one',
+    })
+    cy.createBlog({
+      title: 'two',
+      author: 'two',
+      url: 'two',
+    })
+    cy.get('#basics').first().contains('one')
+    cy.likeBlog({ title: 'two' })
+    cy.wait(5000)
+    cy.get('#basics').first().contains('two')
   })
 })

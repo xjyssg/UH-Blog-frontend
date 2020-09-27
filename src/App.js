@@ -6,6 +6,7 @@ import CreateBlogForm from './components/CreateBlogForm'
 import Notification from './components/Notification'
 import Toggle from './components/Toggle'
 import blogService from './services/blogs'
+import './App.css'
 
 
 const App = () => {

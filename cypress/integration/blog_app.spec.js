@@ -26,12 +26,12 @@ describe('Blog app', function() {
       cy.contains('root logged in')
     })
 
-    it('fails with wrong credentials', function() {
+    it.only('fails with wrong credentials', function() {
       cy.get('#username').type('root')
       cy.get('#password').type('123')
       cy.get('#login-button').click()
-
       cy.contains('Wrong credentials')
+      cy.get('#red').should('have.css', 'color', 'rgb(255, 0, 0)')
     })
   })
 })

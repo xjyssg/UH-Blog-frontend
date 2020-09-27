@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 
-const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage, testfcn }) => {
+const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -18,7 +18,6 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage, testfc
 
   const toggleDetail = () => {
     setShowDetail(!showDetail)
-    testfcn()
   }
 
   const addLikes = async () => {
@@ -63,7 +62,7 @@ const Blog = ({ user, blog, blogs, setBlogs, setMessage, setErrorMessage, testfc
       }
     }
   }
-
+  console.log('###',user, blog)
   return (
     <div style={blogStyle}>
       {blog.title}, from: {blog.author}

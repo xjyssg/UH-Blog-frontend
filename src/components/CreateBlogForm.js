@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 
-const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage, createBlogFormRef}) => {
+const CreateBlogForm = ({ setBlogs, blogs, setMessage, setErrorMessage, createBlogFormRef }) => {
   const [title, SetTitle] = useState('')
   const [author, SetAuthor] = useState('')
   const [url, SetUrl] = useState('')
@@ -16,7 +16,7 @@ const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage, createBlo
 
   const addBlogHandler = async (event) => {
     event.preventDefault()
-    
+
     try {
       const newObject = {
         title: title,
@@ -31,7 +31,7 @@ const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage, createBlo
       setTimeout(() => {
         setMessage(null)
       }, 5000)
-    } catch {
+    } catch (exception) {
       setErrorMessage('creation fail')
       setTimeout(() => {
         setErrorMessage(null)
@@ -49,6 +49,7 @@ const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage, createBlo
             type="text"
             value={title}
             name="title"
+            id="title"
             onChange={titleChangeHandler}
           />
         </div>
@@ -58,6 +59,7 @@ const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage, createBlo
             type="text"
             value={author}
             name="author"
+            id="author"
             onChange={authorChangeHandler}
           />
         </div>
@@ -66,15 +68,16 @@ const CreateBlogForm = ({setBlogs, blogs, setMessage, setErrorMessage, createBlo
           <input
             type="text"
             value={url}
-            name={author}
+            name="url"
+            id="url"
             onChange={urlChangeHandler}
           />
         </div>
-        <button type="submit">create</button>
-      </form>  
+        <button type="submit" id="create">create</button>
+      </form>
     </div>
   )
 }
 
 
-  export default CreateBlogForm
+export default CreateBlogForm

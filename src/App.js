@@ -54,7 +54,7 @@ const App = () => {
 
       {user !== null && <LoggedInfo user={user} logoutHandler={logoutHandler} />}
 
-      <Toggle buttonLabel='new note' ref={createBlogFormRef}>
+      <Toggle buttonLabel='new blog' ref={createBlogFormRef}>
         <CreateBlogForm
           blogs={blogs}
           setBlogs={setBlogs}
